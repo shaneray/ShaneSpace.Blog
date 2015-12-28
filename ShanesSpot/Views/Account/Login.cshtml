@@ -1,0 +1,53 @@
+﻿@model ShanesSpot.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="well well-lg">
+    <h2>@ViewBag.Title.</h2>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Log in with local account.
+            </div>
+            <div class="panel-body">
+                <div>
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <div class="checkbox" style="text-align: left;">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { style = "width: auto" })
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                            <div class="col-xs-offset-8 col-xs-4">
+                                <label class="control-label">&nbsp;</label>
+                                <input type="submit" value="Submit" class="form-control btn btn-primary" />
+                            </div>
+                        }
+                    </section>
+
+                </div>
+            </div>
+            <div class="panel-footer">
+                <p>
+                    @Html.ActionLink("Register", "Register") if you don't have a local account.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Apple Default -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" href="/Content/images/alien_head_round.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- iPhone -->
+    <link rel="apple-touch-startup-image"
+          media="(device-width: 320px)"
+          href="apple-touch-startup-image-320x460.png">
+
+    <!-- iPhone (Retina) -->
+    <link rel="apple-touch-startup-image"
+          media="(device-width: 320px)
+         and (-webkit-device-pixel-ratio: 2)"
+          href="apple-touch-startup-image-640x920.png">
+
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Shane's Space", MVC.Home.Index(), new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
+                    <li>@Html.ActionLink("About", MVC.Home.About())</li>
+                    <li>@Html.ActionLink("Blog", MVC.Blog.BlogEntry.Index())</li>
+                    <!--
+                        <li>@Html.ActionLink("To Do", MVC.Todo.ToDoEntry.Index())</li>
+                        -->
+                    <li>@Html.ActionLink("Contact", MVC.Home.Contact())</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="well well-sm">&copy; @DateTime.Now.Year - Shane Ray</div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="/Content/datepicker/js/bootstrap-datepicker.js"></script>
+    <link href="/Content/datepicker/css/datepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            theme: "modern",
+            plugins: [
+    "advlist autolink lists link image charmap print preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "insertdatetime media table contextmenu paste"
+            ],
+            toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            toolbar2: "print preview media | forecolor backcolor emoticons",
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ]
+        });
+    </script>
+
+</body>
+</html>

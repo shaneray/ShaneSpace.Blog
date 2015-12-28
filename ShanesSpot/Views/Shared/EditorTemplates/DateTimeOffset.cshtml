@@ -1,0 +1,8 @@
+﻿@if (!string.IsNullOrWhiteSpace(ViewData.TemplateInfo.FormattedModelValue.ToString()))
+{
+    @Html.TextBox("", ((DateTimeOffset?) ViewData.TemplateInfo.FormattedModelValue).GetValueOrDefault().DateTime.ToString("yyyy-MM-dd"), new {@class = "form-control", type = "date"});
+}
+else
+{
+    @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control", type = "date" });
+}

@@ -1,0 +1,41 @@
+﻿@model ShanesSpot.Models.ManageProfileViewModel
+
+@using (Html.BeginForm("ManageProfile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4>Manage Profile</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row" style="padding: 10px;">
+                @Html.ValidationSummary(true)
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+                @Html.EditorFor(model => model.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                @Html.EditorFor(model => model.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName)
+
+                @Html.LabelFor(model => model.ProfilePictureUrl, new { @class = "control-label" })
+                @Html.EditorFor(model => model.ProfilePictureUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ProfilePictureUrl)
+
+                @Html.LabelFor(model => model.Birthdate, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Birthdate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Birthdate)
+                
+                <div class="col-xs-offset-8 col-xs-4">
+                    <label class="control-label">&nbsp;</label>
+                    <input type="submit" value="Submit" class="form-control btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

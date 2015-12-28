@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNet.Identity
+@using ShanesSpot.ExtensionMethods
+@model IEnumerable<ShanesSpot.Areas.Blog.Models.BlogEntryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="well well-lg">
+    <h2>Blog Post</h2>
+    <h6>Showing @ViewBag.Take of @ViewBag.TotalResults total blog entries.</h6>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink(@"Create New", "Create")
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="well well-lg">
+        <h3>No Blog Post</h3>
+        <h6>Check back soon....</h6>
+    </div>
+}
+else
+{
+    <ul class="pager">
+        <li class="previous @ViewBag.PreviousButtonState"><a href="@ViewBag.PreviousButtonLink">&larr; Newer</a></li>
+        <li class="next @ViewBag.NextButtonState"><a href="@ViewBag.NextButtonLink">Older &rarr;</a></li>
+    </ul>
+    foreach (var item in Model)
+    {
+        <div>
+            <div class="panel panel-info">
+                <div class="panel-heading" style="padding-bottom: 0px;">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-2 col-md-1" style="text-align: center;">
+                            @item.User
+                                
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11">
+                            <h3>@Html.ActionLink(@item.Title, "Details", new { id = item.Id })</h3>
+                        </div>
+                    </div>
+                    @if (String.Equals(User.Identity.GetUserId(), item.UserId, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        <div class="row" style="background-color: #202020; background-color: rgba(32,32,32,.9); text-align: right;">
+                            <div class="col-md-12">
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) /
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) /
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="panel-body">
+                    <strong>Posted On:</strong> @item.DateTime<br /><br />
+                    @Html.Raw(item.Description)
+                    @Html.ActionLink("Read More...", "Details", new { id = item.Id })
+                </div>
+                <div class="panel-footer">
+                    <strong>Tags:</strong> <div class="label label-default tag"><a href="#">Fake Tag</a></div>, <div class="tag label label-default"><a href="#">Fake Tag</a></div>, <div class="tag label label-default"><a href="#">Fake Tag</a></div>
+                </div>
+            </div>
+        </div>
+
+    }
+    <ul class="pager">
+        <li class="previous @ViewBag.PreviousButtonState"><a href="@ViewBag.PreviousButtonLink">&larr; Newer</a></li>
+        <li class="next @ViewBag.NextButtonState"><a href="@ViewBag.NextButtonLink">Older &rarr;</a></li>
+    </ul>
+}

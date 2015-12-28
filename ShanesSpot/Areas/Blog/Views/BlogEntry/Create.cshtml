@@ -1,0 +1,69 @@
+﻿@using Glimpse.Core.Tab.Assist
+@using ShanesSpot.ExtensionMethods
+@model ShanesSpot.Areas.Blog.Models.BlogEntryViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="well well-lg">
+    <h2>Create</h2>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        New Blog Entry
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Link, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Link)
+                        @Html.ValidationMessageFor(model => model.Link)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title)
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Body, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Body)
+                        @Html.ValidationMessageFor(model => model.Body)
+                    </div>
+                </div>
+
+                <div class="form-group"><div class="col-md-offset-10 col-md-2"><input type="submit" value="create" style="width: 100% !important" class="btn btn-primary" /></div></div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

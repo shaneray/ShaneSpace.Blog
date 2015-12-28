@@ -1,0 +1,40 @@
+﻿@model ShanesSpot.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="well well-lg">
+    <h2>@ViewBag.Title.</h2>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Create a new account.
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    
+                    @Html.LabelFor(m => m.ProfilePictureUrl, new { @class = "control-label" })
+                    @Html.PasswordFor(m => m.ProfilePictureUrl, new { @class = "form-control" })
+                    <div class="col-xs-offset-8 col-xs-4">
+                        <label class="control-label">&nbsp;</label>
+                        <input type="submit" value="Submit" class="form-control btn btn-primary" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
