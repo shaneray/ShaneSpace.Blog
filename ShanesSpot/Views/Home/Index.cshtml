@@ -5,28 +5,26 @@
 <div class="jumbotron">
     <img src="/Content/Images/alien_head.jpg" class="img-circle" style="float: left; margin-right: 15px; max-height: 150px" />
     <h1>Shane's Space</h1>
-    <p class="lead">My name is shane.  I am a software developer and a general computer engineer.  This will be my spot to blog about new things I find interesting, as well as test out new ideas.</p>
+    <p class="lead">My name is Shane.  I am a software developer and a general computer engineer.  This will be my spot to blog about new things I find interesting, as well as test out new ideas.</p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <div class="well well-sm" >
-            <h2>My Bio</h2>
+            <h2>Quick Bio</h2>
             <p>
-                I am 26 years old.  I have an awesome fiance that I plan on getting married to in October 2014 in Hawaii.
-                We have a little boy that is 6 years old and is the funniest, smartest, and sweetest kid I have ever met.
-                I enjoy developing software as well as learning about software and computers in general.
+                I am @ViewBag.Age years old.  I have an awesome wife that I married in October of 2014 in Hawaii.
+                We have a little boy that is @ViewBag.JaylanAge years old and is the funniest, smartest, and sweetest kid I have ever met.
+                I enjoy developing software and solving complex problems as well as learning about software and computers in general.
             </p>
-            <p><a class="btn btn-default" href="#">Online Resume &raquo;</a></p>
+            <div class="btn btn-default"><a target="_blank" href="https://shanespaceresume.azurewebsites.net/">Online Resume &raquo;</a></div>
         </div>
-
     </div>
     <div class="col-md-4">
         <div class="well well-sm">
             <h2>My Blog</h2>
             <p>I will blog about new things I find interesting, things I want to remember, and problems I run into.  It could be just about anything, check it out...</p>
             <p>
-                
                 <div class="btn btn-default">@Html.ActionLink("Blog", MVC.Blog.BlogEntry.Index()) &raquo;</div>
             </p>
         </div>
@@ -35,7 +33,7 @@
         <div class="well well-sm">
             <h2>My Links</h2>
             <p>Links to things I find interesting, or need to get back to freequently.  Basically my personal bookmark bar, but feel free to look around.</p>
-            <p><a class="btn btn-default" href="#">My Links &raquo;</a></p>
+            <div class="btn btn-default"><a href="#">My Links &raquo;</a></div>
         </div>
     </div>
 </div>

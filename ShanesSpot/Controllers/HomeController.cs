@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace ShanesSpot.Controllers
 {
@@ -6,6 +7,10 @@ namespace ShanesSpot.Controllers
     {
         public virtual ActionResult Index()
         {
+            var myBirthDate = DateTime.Parse("1987-06-05");
+            var jaylanBirthDate = DateTime.Parse("2007-08-06");
+            ViewBag.Age = Math.Floor(DateTime.Now.Subtract(myBirthDate).TotalDays / 365);
+            ViewBag.JaylanAge = Math.Floor(DateTime.Now.Subtract(jaylanBirthDate).TotalDays / 365);
             return View();
         }
 

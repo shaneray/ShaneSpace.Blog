@@ -83,24 +83,45 @@ input[type="checkbox"].input-validation-error {
     max-width: 175px;
     max-height: 175px;
 }
-.tag,.btn,.pager>li a {
+
+.tag,
+.btn,
+.btn a,
+.pager > li a {
     color: #333;
+    text-decoration: none;
 }
-.tag,.btn,.pager>li a:link {
-    color: #333;
-}
-.tag,.btn,.pager>li a:active {
-    color: #333;
-}
-.tag,.btn,.pager>li a:focus {
-    color: #333;
-}
-.tag,.btn,.pager>li a:hover {
-    color: #333;
-}
-.tag,.btn,.pager>li a:visited {
-    color: #333;
-}
+    .tag,
+    .btn,
+    .btn a:link,
+    .pager > li a:link {
+        color: #333;
+    }
+        .tag,
+        .btn,
+        .btn a:active,
+        .pager > li a:active {
+            color: #333;
+        }
+            .tag,
+            .btn,
+            .btn a:focus,
+            .pager > li a:focus {
+                color: #333;
+            }
+                .tag,
+                .btn,
+                .btn a:hover,
+                .pager > li a:hover {
+                    color: #333;
+                }
+                    .tag,
+                    .btn,
+                    .btn a:visited,
+                    .pager > li a:visited {
+                        color: #333;
+                    }
+
 a {
     color: #F1F1F1;
 }
@@ -113,6 +134,7 @@ a:hover {
 a:active {
     color: #F1F1F1;
     }
+
 code {
     background-color: #202020;
     border: 2px solid #c0c0c0;
