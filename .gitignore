@@ -1,11 +1,16 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿##############################
+# Repository Specific Ignores
+##############################
 
-/.vs
-**/packages
+##############################
+# Common Ignores
+##############################
+/packages
 **/bin
 **/obj
+**/bower_components
+**/node_modules
+**/*.csproj.user
+/.vs
+**/PrecompiledWeb
 *.user
-*.mdf
-*.ldf

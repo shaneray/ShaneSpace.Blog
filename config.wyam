@@ -1,0 +1,7 @@
+#recipe Blog
+#theme CleanBlog
+
+Settings["Title"] = "ShaneSpace Blog";
+Settings["Image"] = "none";
+Settings["Description"] = "ShaneSpace Blog";
+Settings["Intro"] = "My name is Shane. I am a software developer and a general computer engineer. This will be my spot to blog and re-blog about new things I find interesting.";
