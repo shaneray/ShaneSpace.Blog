@@ -6,6 +6,7 @@
 # Common Ignores
 ##############################
 /packages
+/tools
 **/bin
 **/obj
 **/bower_components
