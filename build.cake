@@ -28,6 +28,15 @@ Task("Build")
         Wyam();
     });
 
+Task("Deploy")
+    .Does(() =>
+    {
+        Wyam(new WyamSettings
+        {
+            OutputPath = "..\\output"
+        });
+    });
+
 Task("Preview")
     .Does(() =>
     {
