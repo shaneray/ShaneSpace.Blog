@@ -1,5 +1,5 @@
 ﻿<div class="site-heading">
-    <img src="https://en.gravatar.com/userimage/76770699/48d84be8536e3d6f8b0a1ee386bacf9d.jpeg" class="img-circle" style="float: left; margin-right: 15px; max-height: 150px">
+    <img src="https://en.gravatar.com/userimage/76770699/48d84be8536e3d6f8b0a1ee386bacf9d.jpeg" class="header-img">
     @if (Context.String(BlogKeys.Description) != null)
     {
         <h1>@Context.String(BlogKeys.Description)</h1>
@@ -8,4 +8,11 @@
     {
         <span class="subheading">@Context.String(BlogKeys.Intro)</span>
     }
+    <div>
+        <a class="github-button" href="https://github.com/shaneray" data-style="mega" data-count-href="/shaneray/followers" data-count-api="/users/shaneray#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @("@shaneray") on GitHub">Follow @("@shaneray") </a>
+        <a class="github-button" href="https://github.com/shaneray/ShaneSpace.Blog/subscription" data-icon="octicon-eye" data-style="mega" data-count-href="/shaneray/ShaneSpace.Blog/watchers" data-count-api="/repos/shaneray/ShaneSpace.Blog#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch shaneray/ShaneSpace.Blog on GitHub">Watch</a>
+        <a class="github-button" href="https://github.com/shaneray/ShaneSpace.Blog" data-icon="octicon-star" data-style="mega" data-count-href="/shaneray/ShaneSpace.Blog/stargazers" data-count-api="/repos/shaneray/ShaneSpace.Blog#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star shaneray/ShaneSpace.Blog on GitHub">Star</a>
+    </div>
 </div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
