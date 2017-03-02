@@ -3,9 +3,11 @@
         padding: 100px 0 50px;
     }
 }
-
-.post-title {
-    color: #D4B775;
+.site-heading img {
+    margin-right: auto;
+    min-height: 150px;
+    margin-left: auto;
+    border: 2px solid white;
 }
 
 body {
