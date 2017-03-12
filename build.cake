@@ -46,6 +46,10 @@ Task("Deploy")
         StartPowershellScript("git rm -rf .");
         StartPowershellScript("xcopy ..\\output . /E");
 
+        // rename Index.html to index.html
+        MoveFile("Index.html", "Index.rename.html");
+        MoveFile("Index.rename.html", "index.html");
+
         //Push changes to git
         StartPowershellScript("git remote set-url origin https://github.com/shaneray/ShaneSpace.Blog.git");
         StartPowershellScript("git add -A");
