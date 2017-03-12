@@ -1,6 +1,7 @@
 ﻿##############################
 # Repository Specific Ignores
 ##############################
+packages.xml
 
 ##############################
 # Common Ignores
