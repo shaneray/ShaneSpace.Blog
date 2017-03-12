@@ -5,8 +5,8 @@
 		<link>/</link>
 		<description>ShaneSpace Blog</description>
 		<copyright>2017</copyright>
-		<pubDate>Sun, 12 Mar 2017 16:33:34 GMT</pubDate>
-		<lastBuildDate>Sun, 12 Mar 2017 16:33:34 GMT</lastBuildDate>
+		<pubDate>Sun, 12 Mar 2017 16:37:09 GMT</pubDate>
+		<lastBuildDate>Sun, 12 Mar 2017 16:37:09 GMT</lastBuildDate>
 		<item>
 			<title>Migrating my blog to Wyam</title>
 			<link>/posts/migrating-to-wyam</link>
@@ -106,9 +106,8 @@ s.setAttribute('data-timestamp', +new Date());
 			<content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
 &lt;p&gt; I ran into an issue with an invisible character in my code.  I posted a StackOverflow question and created a Visual Studio extension.&lt;br&gt;&lt;br&gt;
 Question Link: &lt;a hre="https://stackoverflow.com/questions/42423320/getmethod-returning-null"&gt;GetMethod() returning null&lt;/a&gt;&lt;br&gt;
-Extension Link:&lt;a hre="https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer"&gt;Invisible Character Visualizer&lt;/a&gt;&lt;br&gt;
+Extension Link: &lt;a hre="https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer"&gt;Invisible Character Visualizer&lt;/a&gt;&lt;br&gt;
 GitHub Link: &lt;a hre="https://github.com/shaneray/ShaneSpace.VisualStudio.InvisibleCharacterVisualizer"&gt;ShaneSpace.VisualStudio.InvisibleCharacterVisualizer&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
 &lt;h1&gt;Motivation&lt;/h1&gt;
 &lt;p&gt;I have always loved the idea of open source software. &amp;nbsp;However, having a full time job and family made it hard for me to get involved as I wanted to be in the community (Maybe this was just an excuse. &amp;nbsp;I know there are many people out there with much more demanding schedules than mine, and they find the time). &amp;nbsp;At the beginning of 2017 the company I was working for decided to lay off the majority of the software development team, myself included. &amp;nbsp;While I was going through the job search process, I decided I was going to spend this extra time to give back to the community that I have got so much from. &amp;nbsp;I went through a few side projects that I felt was "good enough" for the world to see and pushed them to GitHub (&lt;a href="https://github.com/shaneray" target="_blank"&gt;https://github.com/shaneray&lt;/a&gt;). &amp;nbsp;It wasnt much, but it was a start. &amp;nbsp;I then went to StackOverflow (&lt;a href="https://stackoverflow.com/users/5203905/shane-ray"&gt;https://stackoverflow.com/users/5203905/shane-ray&lt;/a&gt;) and started answering questions. &amp;nbsp;The more questions I answered the more my reputation grew, this was exciting as I could visualize the impact I was having (Reputation, Badges, and People Reached). &amp;nbsp;I noticed one of the badges it was recommending me to try and get was the "Student" badge. &amp;nbsp;The student badge is awarded for your "First question with score of 1 or more". &amp;nbsp;I wasnt sure how I would get this badge, I had no questions. &amp;nbsp;One day while I was answering another question I was writing a sample in Visual Studio. &amp;nbsp;For some reason my sample was not producing the correct output. &amp;nbsp;I hoped on google and searched some syntax and different overloads for one of the methods that was giving me trouble. &amp;nbsp;Everything I tried still resulted in the incorrect output being produced. &amp;nbsp;The code was pretty simple, I had to be making a silly mistake.&lt;/p&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
