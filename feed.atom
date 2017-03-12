@@ -4,7 +4,7 @@
 	<id>/</id>
 	<title>ShaneSpace Blog</title>
 	<rights>2017</rights>
-	<updated>2017-03-12T16:25:17Z</updated>
+	<updated>2017-03-12T16:33:34Z</updated>
 	<logo>/none</logo>
 	<subtitle>ShaneSpace Blog</subtitle>
 	<entry>
@@ -103,8 +103,8 @@ s.setAttribute('data-timestamp', +new Date());
 		<title>My First StackOverflow Question and Visual Studio Extension.</title>
 		<updated>2017-02-25T19:55:23Z</updated>
 		<content>&lt;h1&gt;TL;DR&lt;/h1&gt;
-&lt;p&gt; I ran into an issue with an invisible character in my code.  I posted a StackOverflow question and created a Visual Studio extension.&lt;br&gt;
-Question Link: &lt;a hre="https://stackoverflow.com/questions/42423320/getmethod-returning-null"&gt;GetMethod() returning null&lt;/a&gt;
+&lt;p&gt; I ran into an issue with an invisible character in my code.  I posted a StackOverflow question and created a Visual Studio extension.&lt;br&gt;&lt;br&gt;
+Question Link: &lt;a hre="https://stackoverflow.com/questions/42423320/getmethod-returning-null"&gt;GetMethod() returning null&lt;/a&gt;&lt;br&gt;
 Extension Link:&lt;a hre="https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer"&gt;Invisible Character Visualizer&lt;/a&gt;&lt;br&gt;
 GitHub Link: &lt;a hre="https://github.com/shaneray/ShaneSpace.VisualStudio.InvisibleCharacterVisualizer"&gt;ShaneSpace.VisualStudio.InvisibleCharacterVisualizer&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&amp;nbsp;&lt;/p&gt;
