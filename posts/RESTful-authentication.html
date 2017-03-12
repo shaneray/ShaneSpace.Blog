@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>ShaneSpace Blog - RESTful authentication</title>
+        <meta name="description" content="ShaneSpace Blog" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="ShaneSpace Blog" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="ShaneSpace Blog" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="ShaneSpace Blog" />
+        <meta name="msapplication-tooltip" content="ShaneSpace Blog" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="ShaneSpace Blog - RESTful authentication" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/posts/RESTful-authentication" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">ShaneSpace Blog</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header" style="background-image: url(&quot;none&quot;)">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>RESTful authentication</h1>
+    <div class="meta">        
+Published on Monday, December 30, 2013<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/authentication" class="btn btn-default btn-xs">Authentication</a>
+                    <a role="button" href="/tags/re-blog" class="btn btn-default btn-xs">re-blog</a>
+                    <a role="button" href="/tags/rest" class="btn btn-default btn-xs">REST</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<p>Source: <a href="http://facundoolano.wordpress.com/2013/12/23/my-take-on-restful-authentication/">http://facundoolano.wordpress.com/2013/12/23/my-take-on-restful-authentication/</a></p>
+<p>The topic of authentication in REST architectures is a debatable one; there are several ways to do it, not all of them practical, not all RESTful; no standard and a lot of room for confusion.&nbsp;Ever since I got into REST, this was the one thing which wasn&rsquo;t evident to me, even after a decent amount of research. Recently I got the time to dive deeper in the problem, evaluated thoroughly the alternatives and made my conclusions. While they may be inaccurate at some degree, I gather them here since I found no one place that would present the topic in a friendly fashion.</p>
+<p>First let&rsquo;s establish some ground rules for the analysis, to avoid a lot of the usual confusion.</p>
+<ol>
+<li>I want to authenticate my own clients: a Single-Page Web App or a Mobile App is the front end, and a REST API is the back end of my application. I don&rsquo;t want to authenticate third-party consumers of my API, which is the focus of most REST traditional bibliography.</li>
+<li>I want to do pragmatic REST: I&rsquo;m not interested in being too subtle on how much state is RESTful; I won&rsquo;t start by quoting Fielding&rsquo;s dissertation on why REST should be stateless. I know statelessness induces some desirable properties on the architecture, therefore it&rsquo;s good to reduce the application state to the minimum and try to keep it on the client side. But, some compromises can be made to get other desirable properties, such as security, simplicity of the implementation, better user experience (i.e. no ugly Basic Auth browser dialog). For example, having a resource that matches an access token to a user, and states the expiry time, sounds like a fair trade-off between convenience, security and RESTfulness.</li>
+<li>You can&rsquo;t get away without SSL/TLS. If you want to provide a decent level of security (and why else would you worry about authentication?), you need to have a secure channel of communication, so you&nbsp;<em>have</em>&nbsp;to use HTTPS.</li>
+<li>Using a home-brew authentication method is probably a bad idea.</li>
+</ol>
+<p>That being said, let&rsquo;s look at the authentication methods available.</p>
+<h3>HTTP Basic</h3>
+<p>Why would you use HTTP Basic authentication? well, it&rsquo;s simple, and that always counts. It does send the password on each request, which in most cases isn&rsquo;t that big of a deal since, as we established, we are over HTTPS. Most methods will make you send the credentials anyway, and although some of them do it in just one request, I don&rsquo;t see this as a deal-breaker for the most common authentication method out there.&nbsp;The biggest issue with Basic (also applicable to digest) is that it displays an ugly browser&nbsp;login&nbsp;dialog, and you can&rsquo;t avoid that just by including the authorization header manually via JavaScript, because it would appear in the&nbsp;case of invalid credentials. To get around this you have to incur in&nbsp;<a href="http://loudvchar.blogspot.ca/2010/11/avoiding-browser-popup-for-401.html">inconvenient hacks</a>, moving away from the standard. Thus we loose the simplicity we started with, we get too close to the ill-fated place of rolling our own security method (without adding any desirable extra features), and so we should probably&nbsp;look into one of the other options.</p>
+<h3>HTTP Digest</h3>
+<p>Digest is intended to be a more secure alternative to HTTP Basic, and&nbsp;<a href="http://mark-kirby.co.uk/2013/how-to-authenticate-apis-http-basic-vs-http-digest/">could be considered</a>&nbsp;if we were not using HTTPS, which we are. Without a secure connection, the method is vulnerable to Man-in-the-Middle attacks, you&rsquo;d be sending credentials hashed with a&nbsp;<a href="http://en.wikipedia.org/wiki/MD5">weak algorithm</a>&nbsp;and you wouldn&rsquo;t be allowed to use a strong encryption method to store the passwords. Moreover it&rsquo;s less simple than Basic and you still have to deal with the browser login box. So we rule out digest.</p>
+<h3>Cookies</h3>
+<p>A classic resource on RESTful Authentication is the homonymous&nbsp;<a href="http://stackoverflow.com/questions/319530/restful-authentication">stackoverflow question</a>. The most voted answer there mentions the problems of using Basic Auth and proposes a custom method based on storing a session id in a cookie. I don&rsquo;t mind having a narrow scoped session (for example with expiration date), but if you&rsquo;re rolling a custom method, I don&rsquo;t see any advantages in using cookies over an Authorization Header, either mimicking Basic Auth or with a different&nbsp;logic.</p>
+<h3>OpenID</h3>
+<p>OpenID provides federated authentication by letting the user log in an application using his account from another provider such as Google or Yahoo. It is in theory a more adequate approach than OAuth for delegating the credentials management to a third-party provider, but it&rsquo;s harder to implement and I haven&rsquo;t found a single source discussing how it may be used as a method for REST authentication.</p>
+<h3>OAuth</h3>
+<p>OAuth is probably the biggest source of confusion: you have two widely deployed versions, with a&nbsp;<a href="http://hueniverse.com/2012/07/oauth-2-0-and-the-road-to-hell/">lot of debate</a>&nbsp;behind, and several workflows to handle different scenarios. What&rsquo;s more, OAuth is an<em>authorization</em>&nbsp;standard, that in some cases may be bent into doing authentication.</p>
+<h4>Pseudo-authentication</h4>
+<p>The most common use case of OAuth is a user authorizing a consumer application to access his data on a third party application (i.e. Facebook), without giving away his credentials. This authorization schema can be used as a way of delegated authentication: if the consumer is granted access to the user data, then the identity of the user is proven. While this works, it has some pitfalls: first, it assumes that having access to user data equals to being the user, which isn&rsquo;t necessarily true (this is not enforced by the protocol), but more importantly, it gives the consumer application access to data that shouldn&rsquo;t be required for authentication (i.e. photos, contacts). That&rsquo;s why this is referred as&nbsp;<a href="http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/">pseudo-authentication</a>. It&rsquo;s worth noting that&nbsp;<a href="http://openid.net/connect/">OpenID Connect</a>is being developed as a complement to OAuth to solve this problem.</p>
+<h4>2-legged and Client Credentials</h4>
+<p>There are cases where you want to handle credentials yourself, so you don&rsquo;t need the third party provider in the workflow.&nbsp;<a href="http://tatiyants.com/using-oauth-to-protect-internal-rest-api/">Some articles</a>&nbsp;suggest using OAuth1 2-legged Auth or the OAuth2 Client Credentials grant, but I&rsquo;ve found that both of them solve the authorization part, providing an access token to include in the requests, but leave authentication (how you establish the identity when requesting for that token) to be handled by other method. Thus, it&rsquo;s not of much use for the problem at hand.</p>
+<h4>Resource Password Owner</h4>
+<p>OAuth2 Resource Password Owner flow does solve authentication when you are in control of the credentials. It exchanges an initial request with user and password for a token that can be used to authenticate (and authorize) subsequent requests. This is an<a href="http://apiux.com/2013/07/10/oauth-2-trumps-basic-authentication/">alternative to Basic Auth</a>, slightly better in the sense that you just include credentials on the first call (thus you don&rsquo;t need to store them in the client). It&rsquo;s also a standard with a simple implementation and avoids the browser interaction problem of the standard HTTP methods, making it the better choice in this scenario.</p>
+<h3>Secure Remote Password</h3>
+<p>Meteor.js&nbsp;<a href="https://www.meteor.com/blog/2012/10/17/meteor-050-authentication-user-accounts-new-screencast">recently introduced</a>&nbsp;the Secure Remote Password protocol as a way to handle authentication in web applications. It&rsquo;s hailed&nbsp;as the one method that guarantees security without HTTPS, but SRP itself only provides a way to log a user in without using its credentials in the application server. Upon user registration, a verifier is stored instead of the password; for authentication the user sends some parameters derived from the password that can be checked against that verifier. The credentials indeed are never sent, and can&rsquo;t be guessed by the parameters, but you still need a secure transaction when registering the verifier. An attacker that gets a hold of the verifier can obtain the passwords with a dictionary attack. An interesting case of this is the&nbsp;<a href="http://www.opine.me/blizzards-battle-net-hack/">attack to Blizzard servers</a>&nbsp;in 2012.</p>
+<h3>Conclusions</h3>
+<p>Avoiding password management is generally a good idea for application developers. With that in mind, I&rsquo;d start looking at delegated and federated authentication for securing my RESTful APIs. OAuth is formally less appropriated, but simpler and more widely used than OpenID, which some state to be dead, so that looks like the safer bet.&nbsp;If you want to handle credentials yourself, OAuth&rsquo;s Resource Password Owner flow is probably the best choice.</p>
+
+
+<div id="disqus_thread"></div>
+<script>
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'RESTful-authentication'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+        </body>
+</html>
+

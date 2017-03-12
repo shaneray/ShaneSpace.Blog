@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<link rel="self" href="/" />
+	<id>/</id>
+	<title>ShaneSpace Blog</title>
+	<rights>2017</rights>
+	<updated>2017-03-12T15:58:10Z</updated>
+	<logo>/none</logo>
+	<subtitle>ShaneSpace Blog</subtitle>
+	<entry>
+		<link href="/posts/migrating-to-wyam" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/migrating-to-wyam</id>
+		<title>Migrating my blog to Wyam</title>
+		<updated>2017-02-27T00:00:00Z</updated>
+		<content>&lt;p&gt;This post covers how I migrated my existing MVC blog to a statically generated site using &lt;a href="https://wyam.io/"&gt;Wyam&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="steps-taken"&gt;Steps Taken&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Went to &lt;a href="https://wyam.io/"&gt;Wyam.io&lt;/a&gt; and followed instructions.&lt;/li&gt;
+&lt;li&gt;Downloaded latest Wyam.zip&lt;/li&gt;
+&lt;li&gt;wyam.exe new --recipe Blog&lt;/li&gt;
+&lt;li&gt;wyam.exe --recipe Blog --theme CleanBlog (just to see)&lt;/li&gt;
+&lt;li&gt;tried opening index.html file in chrome - stylesheets broken&lt;/li&gt;
+&lt;li&gt;ran with -p for preview and opened &lt;a href="http://localhost:5080/"&gt;http://localhost:5080/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;edited configuration file to automatically use the CleanBlog theme&lt;/li&gt;
+&lt;li&gt;noticed you cannot override the theme set in the config via command line (going to create GitHub issue)&lt;/li&gt;
+&lt;li&gt;ran &lt;code&gt;dotnet new solution&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;opened solution in Visual Studio and added "existing website" using the input folder as the source&lt;/li&gt;
+&lt;li&gt;added "solution items" solution folder for configuration files
+&lt;ul&gt;
+&lt;li&gt;config.wyam&lt;/li&gt;
+&lt;li&gt;.gitattributes&lt;/li&gt;
+&lt;li&gt;.gitignore&lt;/li&gt;
+&lt;li&gt;.editorconfig&lt;/li&gt;
+&lt;li&gt;build.cake&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;used configuration from &lt;a href="https://wyam.io/docs/deployment/cake"&gt;https://wyam.io/docs/deployment/cake&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;added powershell plugin and the following code before calling the Wyam function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;StartPowershellScript("Start-Process", args =&amp;gt;
+{
+    args.AppendQuoted("http://localhost:5080");
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;configured "input" start options to run cake build target "Preview" (pictured below).  This allows me to open Visual Studio and simply press F5 to start the preview server with watching enabled and launch the browser to the specified url.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src="/images/inputPropertyPages.png"&gt;
+&lt;ul&gt;
+&lt;li&gt;edited CSS to my liking&lt;/li&gt;
+&lt;li&gt;set the following setting in config.wyam
+&lt;ul&gt;
+&lt;li&gt;Title&lt;/li&gt;
+&lt;li&gt;Image&lt;/li&gt;
+&lt;li&gt;Description&lt;/li&gt;
+&lt;li&gt;Intro&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;added override files
+&lt;ul&gt;
+&lt;li&gt;css\override.css&lt;/li&gt;
+&lt;li&gt;_IndexHeader.cshtml&lt;/li&gt;
+&lt;li&gt;Index.chtml&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;built simple console application to pull existing blog entries from RavenHQ and write them to `.md' files and place them in the posts folder.
+&lt;ul&gt;
+&lt;li&gt;I ended up having a few blog entries that contained &lt;code&gt;:&lt;/code&gt;, this broke the yaml parser and blew things up.  I chose to just replace &lt;code&gt;:&lt;/code&gt; with &lt;code&gt;string.Empty&lt;/code&gt; and move on. (going to create github issue)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;modified tags on imported blog entries&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'migrating-to-wyam'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/My-First-StackOverflow-Question-and-Visual-Studio-Extension" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/My-First-StackOverflow-Question-and-Visual-Studio-Extension</id>
+		<title>My First StackOverflow Question and Visual Studio Extension.</title>
+		<updated>2017-02-25T19:55:23Z</updated>
+		<content>&lt;h1&gt;TL;DR&lt;/h1&gt;
+&amp;gt; I ran into an issue with an invisible character in my code.  I posted a StackOverflow question and created a Visual Studio extension.
+&amp;gt; Question Link: [GetMethod() returning null](https://stackoverflow.com/questions/42423320/getmethod-returning-null)
+&amp;gt; Extension Link: [Invisible Character Visualizer](https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer)
+&amp;gt; GitHub Link: [ShaneSpace.VisualStudio.InvisibleCharacterVisualizer](https://github.com/shaneray/ShaneSpace.VisualStudio.InvisibleCharacterVisualizer)
+&lt;h1&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;I have always loved the idea of open source software. &amp;nbsp;However, having a full time job and family made it hard for me to get involved as I wanted to be in the community (Maybe this was just an excuse. &amp;nbsp;I know there are many people out there with much more demanding schedules than mine, and they find the time). &amp;nbsp;At the beginning of 2017 the company I was working for decided to lay off the majority of the software development team, myself included. &amp;nbsp;While I was going through the job search process, I decided I was going to spend this extra time to give back to the community that I have got so much from. &amp;nbsp;I went through a few side projects that I felt was "good enough" for the world to see and pushed them to GitHub (&lt;a href="https://github.com/shaneray" target="_blank"&gt;https://github.com/shaneray&lt;/a&gt;). &amp;nbsp;It wasnt much, but it was a start. &amp;nbsp;I then went to StackOverflow (&lt;a href="https://stackoverflow.com/users/5203905/shane-ray"&gt;https://stackoverflow.com/users/5203905/shane-ray&lt;/a&gt;) and started answering questions. &amp;nbsp;The more questions I answered the more my reputation grew, this was exciting as I could visualize the impact I was having (Reputation, Badges, and People Reached). &amp;nbsp;I noticed one of the badges it was recommending me to try and get was the "Student" badge. &amp;nbsp;The student badge is awarded for your "First question with score of 1 or more". &amp;nbsp;I wasnt sure how I would get this badge, I had no questions. &amp;nbsp;One day while I was answering another question I was writing a sample in Visual Studio. &amp;nbsp;For some reason my sample was not producing the correct output. &amp;nbsp;I hoped on google and searched some syntax and different overloads for one of the methods that was giving me trouble. &amp;nbsp;Everything I tried still resulted in the incorrect output being produced. &amp;nbsp;The code was pretty simple, I had to be making a silly mistake.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;The Question&lt;/h1&gt;
+&lt;p&gt;I hopped on StackOverflow and posted my first question (&lt;a href="https://stackoverflow.com/questions/42423320/getmethod-returning-null" target="_blank"&gt;https://stackoverflow.com/questions/42423320/getmethod-returning-null&lt;/a&gt;). &amp;nbsp;It was quickly answered. &amp;nbsp;The issues I was having was due to a few invisible unicode characters that must have snuck their way into the code from one of the copy/paste operations.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;Fixing the Problem&lt;/h1&gt;
+&lt;p&gt;I was glad to have the answer, but was still not happy this happened in the first place. &amp;nbsp;I had ran into a similar issue on a past project parsing output from a firewall. &amp;nbsp;Having ran into this problem multiple times, I thought it was likely that others had also ran into this issue. &amp;nbsp;After a bit of googling, &amp;nbsp;I found that others have ran into this before also and come up with some ways to identify and remove the characters using find/replace and regex. &amp;nbsp;I had also recently installed a plugin from&amp;nbsp;Mads Kristensen called "Trailing Whitespace Visualizer". &amp;nbsp;I had a thought, I will make a Visual Studio extension that visualizes the invisible unicode characters. &amp;nbsp;Surely someone else has already had this idea and created an extension. &amp;nbsp;After a search I realized this was not a thing. &amp;nbsp;I saw my opportunity to give back and help others ovid this silly problem.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;The Regex&lt;/h1&gt;
+&lt;p&gt;While searching for others that had the same problems, I came accross many regular expressions to identity these invisible characters. &amp;nbsp;The majority of them seemed to just focus on non-ASCII characters ([^\x00-\x7F]), or just the control characters ([\x00-\x1F]). &amp;nbsp;This was not what I wanted. &amp;nbsp;There are plenty on non-ASCII characters that display just fine. &amp;nbsp;There where also many characters outside the control characters that did not display at all. &amp;nbsp;I finally came across a StackOverflow answer that had a very long regex that had ranges for all of the invisible characters (&lt;a href="https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript" target="_blank"&gt;https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript&lt;/a&gt;).&lt;/p&gt;
+&lt;div style="overflow: auto;"&gt;[\0-\x1F\x7F-\x9F\xAD\u0378\u0379\u037F-\u0383\u038B\u038D\u03A2\u0528-\u0530\u0557\u0558\u0560\u0588\u058B-\u058E\u0590\u05C8-\u05CF\u05EB-\u05EF\u05F5-\u0605\u061C\u061D\u06DD\u070E\u070F\u074B\u074C\u07B2-\u07BF\u07FB-\u07FF\u082E\u082F\u083F\u085C\u085D\u085F-\u089F\u08A1\u08AD-\u08E3\u08FF\u0978\u0980\u0984\u098D\u098E\u0991\u0992\u09A9\u09B1\u09B3-\u09B5\u09BA\u09BB\u09C5\u09C6\u09C9\u09CA\u09CF-\u09D6\u09D8-\u09DB\u09DE\u09E4\u09E5\u09FC-\u0A00\u0A04\u0A0B-\u0A0E\u0A11\u0A12\u0A29\u0A31\u0A34\u0A37\u0A3A\u0A3B\u0A3D\u0A43-\u0A46\u0A49\u0A4A\u0A4E-\u0A50\u0A52-\u0A58\u0A5D\u0A5F-\u0A65\u0A76-\u0A80\u0A84\u0A8E\u0A92\u0AA9\u0AB1\u0AB4\u0ABA\u0ABB\u0AC6\u0ACA\u0ACE\u0ACF\u0AD1-\u0ADF\u0AE4\u0AE5\u0AF2-\u0B00\u0B04\u0B0D\u0B0E\u0B11\u0B12\u0B29\u0B31\u0B34\u0B3A\u0B3B\u0B45\u0B46\u0B49\u0B4A\u0B4E-\u0B55\u0B58-\u0B5B\u0B5E\u0B64\u0B65\u0B78-\u0B81\u0B84\u0B8B-\u0B8D\u0B91\u0B96-\u0B98\u0B9B\u0B9D\u0BA0-\u0BA2\u0BA5-\u0BA7\u0BAB-\u0BAD\u0BBA-\u0BBD\u0BC3-\u0BC5\u0BC9\u0BCE\u0BCF\u0BD1-\u0BD6\u0BD8-\u0BE5\u0BFB-\u0C00\u0C04\u0C0D\u0C11\u0C29\u0C34\u0C3A-\u0C3C\u0C45\u0C49\u0C4E-\u0C54\u0C57\u0C5A-\u0C5F\u0C64\u0C65\u0C70-\u0C77\u0C80\u0C81\u0C84\u0C8D\u0C91\u0CA9\u0CB4\u0CBA\u0CBB\u0CC5\u0CC9\u0CCE-\u0CD4\u0CD7-\u0CDD\u0CDF\u0CE4\u0CE5\u0CF0\u0CF3-\u0D01\u0D04\u0D0D\u0D11\u0D3B\u0D3C\u0D45\u0D49\u0D4F-\u0D56\u0D58-\u0D5F\u0D64\u0D65\u0D76-\u0D78\u0D80\u0D81\u0D84\u0D97-\u0D99\u0DB2\u0DBC\u0DBE\u0DBF\u0DC7-\u0DC9\u0DCB-\u0DCE\u0DD5\u0DD7\u0DE0-\u0DF1\u0DF5-\u0E00\u0E3B-\u0E3E\u0E5C-\u0E80\u0E83\u0E85\u0E86\u0E89\u0E8B\u0E8C\u0E8E-\u0E93\u0E98\u0EA0\u0EA4\u0EA6\u0EA8\u0EA9\u0EAC\u0EBA\u0EBE\u0EBF\u0EC5\u0EC7\u0ECE\u0ECF\u0EDA\u0EDB\u0EE0-\u0EFF\u0F48\u0F6D-\u0F70\u0F98\u0FBD\u0FCD\u0FDB-\u0FFF\u10C6\u10C8-\u10CC\u10CE\u10CF\u1249\u124E\u124F\u1257\u1259\u125E\u125F\u1289\u128E\u128F\u12B1\u12B6\u12B7\u12BF\u12C1\u12C6\u12C7\u12D7\u1311\u1316\u1317\u135B\u135C\u137D-\u137F\u139A-\u139F\u13F5-\u13FF\u169D-\u169F\u16F1-\u16FF\u170D\u1715-\u171F\u1737-\u173F\u1754-\u175F\u176D\u1771\u1774-\u177F\u17DE\u17DF\u17EA-\u17EF\u17FA-\u17FF\u180F\u181A-\u181F\u1878-\u187F\u18AB-\u18AF\u18F6-\u18FF\u191D-\u191F\u192C-\u192F\u193C-\u193F\u1941-\u1943\u196E\u196F\u1975-\u197F\u19AC-\u19AF\u19CA-\u19CF\u19DB-\u19DD\u1A1C\u1A1D\u1A5F\u1A7D\u1A7E\u1A8A-\u1A8F\u1A9A-\u1A9F\u1AAE-\u1AFF\u1B4C-\u1B4F\u1B7D-\u1B7F\u1BF4-\u1BFB\u1C38-\u1C3A\u1C4A-\u1C4C\u1C80-\u1CBF\u1CC8-\u1CCF\u1CF7-\u1CFF\u1DE7-\u1DFB\u1F16\u1F17\u1F1E\u1F1F\u1F46\u1F47\u1F4E\u1F4F\u1F58\u1F5A\u1F5C\u1F5E\u1F7E\u1F7F\u1FB5\u1FC5\u1FD4\u1FD5\u1FDC\u1FF0\u1FF1\u1FF5\u1FFF\u200B-\u200F\u202A-\u202E\u2060-\u206F\u2072\u2073\u208F\u209D-\u209F\u20BB-\u20CF\u20F1-\u20FF\u218A-\u218F\u23F4-\u23FF\u2427-\u243F\u244B-\u245F\u2700\u2B4D-\u2B4F\u2B5A-\u2BFF\u2C2F\u2C5F\u2CF4-\u2CF8\u2D26\u2D28-\u2D2C\u2D2E\u2D2F\u2D68-\u2D6E\u2D71-\u2D7E\u2D97-\u2D9F\u2DA7\u2DAF\u2DB7\u2DBF\u2DC7\u2DCF\u2DD7\u2DDF\u2E3C-\u2E7F\u2E9A\u2EF4-\u2EFF\u2FD6-\u2FEF\u2FFC-\u2FFF\u3040\u3097\u3098\u3100-\u3104\u312E-\u3130\u318F\u31BB-\u31BF\u31E4-\u31EF\u321F\u32FF\u4DB6-\u4DBF\u9FCD-\u9FFF\uA48D-\uA48F\uA4C7-\uA4CF\uA62C-\uA63F\uA698-\uA69E\uA6F8-\uA6FF\uA78F\uA794-\uA79F\uA7AB-\uA7F7\uA82C-\uA82F\uA83A-\uA83F\uA878-\uA87F\uA8C5-\uA8CD\uA8DA-\uA8DF\uA8FC-\uA8FF\uA954-\uA95E\uA97D-\uA97F\uA9CE\uA9DA-\uA9DD\uA9E0-\uA9FF\uAA37-\uAA3F\uAA4E\uAA4F\uAA5A\uAA5B\uAA7C-\uAA7F\uAAC3-\uAADA\uAAF7-\uAB00\uAB07\uAB08\uAB0F\uAB10\uAB17-\uAB1F\uAB27\uAB2F-\uABBF\uABEE\uABEF\uABFA-\uABFF\uD7A4-\uD7AF\uD7C7-\uD7CA\uD7FC-\uF8FF\uFA6E\uFA6F\uFADA-\uFAFF\uFB07-\uFB12\uFB18-\uFB1C\uFB37\uFB3D\uFB3F\uFB42\uFB45\uFBC2-\uFBD2\uFD40-\uFD4F\uFD90\uFD91\uFDC8-\uFDEF\uFDFE\uFDFF\uFE1A-\uFE1F\uFE27-\uFE2F\uFE53\uFE67\uFE6C-\uFE6F\uFE75\uFEFD-\uFF00\uFFBF-\uFFC1\uFFC8\uFFC9\uFFD0\uFFD1\uFFD8\uFFD9\uFFDD-\uFFDF\uFFE7\uFFEF-\uFFFB\uFFFE\uFFFF]&lt;/div&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;Making the Extension&lt;/h1&gt;
+&lt;p&gt;While I had watched a few videos Mads has been on about creating Visual Studio extensions, and I have went through a few sample projects, I had never actually created an extension and posted it to the market place. &amp;nbsp;I went to Mads github (&lt;a href="https://github.com/madskristensen" target="_blank"&gt;https://github.com/madskristensen&lt;/a&gt;) where he has a bunch of his extensions open sourced forked and studied a few of his extensions. &amp;nbsp;I also went to the VSSDK-Extensibility-Samples repository (&lt;a href="https://github.com/Microsoft/VSSDK-Extensibility-Samples" target="_blank"&gt;https://github.com/Microsoft/VSSDK-Extensibility-Samples&lt;/a&gt;) and did the same. &amp;nbsp;I found the "Intra-Text Adornment Sample" and it seemed like it was close to what I was wanting to do, find some text and replace it inline with a box. &amp;nbsp;I studied that code some more and ended up modifying it to do what I wanted. &amp;nbsp;Once I had my proof of concept complete, I started a new visual studio solution and got to work. &amp;nbsp;After getting my solution setup, project added, and proof of concept code copied over I ran the solution and it worked! &amp;nbsp;I really didnt like the huge regex string, it was going to be very hard to maintain. &amp;nbsp;I did a regex split on the string and created an array that contained the segments I wanted to dectect and replace. &amp;nbsp;This would allow me to add/remove segments easier in the future. &amp;nbsp;I was now happy with my extension so I pushed the code to GitHub (&lt;a href="https://github.com/shaneray/ShaneSpace.VisualStudio.InvisibleCharacterVisualizer" target="_blank"&gt;https://github.com/shaneray/ShaneSpace.VisualStudio.InvisibleCharacterVisualizer&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;Publishing the extension&lt;/h1&gt;
+&lt;p&gt;Simply posting the code to GitHub was not going to help as many people as I wanted so I added it to the Visual Studio Gallery (&lt;a href="https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer)"&gt;https://marketplace.visualstudio.com/items?itemName=ShaneRay.InvisibleCharacterVisualizer)&lt;/a&gt;. &amp;nbsp;Now hopefully others will find this extension and be able to avoid the hours of frustration it can cause.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h1&gt;Final Thoughts&lt;/h1&gt;
+&lt;p&gt;The StackOverflow question ended up getting put on hold and not recieving enough votes to earn me the "student" badge, but I still feel like I made the best of the situation. &amp;nbsp;I found a problem that effected me and likely others and I set out to solve that problem, Hopefully successfully. &amp;nbsp;Next step is to create a Visual Studio Code extension that does the same and continue studying the extensibilty architecture for Visual Studio and Visual Studio Code.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'My-First-StackOverflow-Question-and-Visual-Studio-Extension'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/dotnet-new-angular-and-dotnet-new-react" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/dotnet-new-angular-and-dotnet-new-react</id>
+		<title>dotnet new angular and dotnet new react</title>
+		<updated>2017-02-19T21:25:00Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="https://www.hanselman.com/blog/dotnetNewAngularAndDotnetNewReact.aspx"&gt;https://www.hanselman.com/blog/dotnetNewAngularAndDotnetNewReact.aspx&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Blog from Scott Hanselman about "dotnet new" and available templates.&lt;br&gt;&lt;a href="https://www.hanselman.com/blog/dotnetNewAngularAndDotnetNewReact.aspx" target="_blank"&gt;Scott's Blog Post&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'dotnet-new-angular-and-dotnet-new-react'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Learn-more" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Learn-more</id>
+		<title>Learn more...</title>
+		<updated>2015-01-31T16:05:51Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://tv.ssw.com/"&gt;http://tv.ssw.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Just a collection of videos I watched recently to learn more.&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/SAiSRuX4iW8" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/66FLYTEoLhM" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/8KCWLhgP4Bs" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/d_tWyqaQ2Jk" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/dhowd-ygL5U" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Learn-more'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Fix-Your-Computer-Hunch-and-Other-Posture-Problems" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Fix-Your-Computer-Hunch-and-Other-Posture-Problems</id>
+		<title>Fix Your Computer Hunch and Other Posture Problems</title>
+		<updated>2015-01-26T12:39:22Z</updated>
+		<content>&lt;p&gt;I am not a very active person.  I am on the computer for the majority of the day.  This has led to bad and hip pains.  These videos are an attempt to work through this issue and kill the pain.&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/rm9L0RIhR3s" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/DB8eVaMgJgs" width="420" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;Fix those hips...&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/JBHzXF-mVjY" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Fix-Your-Computer-Hunch-and-Other-Posture-Problems'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Concurrent-AJAX-Requests-and-Session-State-Blocking" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Concurrent-AJAX-Requests-and-Session-State-Blocking</id>
+		<title>Concurrent AJAX Requests and Session State Blocking</title>
+		<updated>2015-01-02T11:56:11Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://johnculviner.com/asp-net-concurrent-ajax-requests-and-session-state-blocking/"&gt;http://johnculviner.com/asp-net-concurrent-ajax-requests-and-session-state-blocking/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Something to remember when working with AJAX and ASP.NET -- Remember this...&lt;/p&gt;
+&lt;p&gt;http://johnculviner.com/asp-net-concurrent-ajax-requests-and-session-state-blocking/&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Concurrent-AJAX-Requests-and-Session-State-Blocking'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/User-Interfaces-in-WPF" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/User-Interfaces-in-WPF</id>
+		<title>User Interfaces in WPF</title>
+		<updated>2014-12-20T14:24:13Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://channel9.msdn.com/Shows/Visual-Studio-Toolbox/User-Interfaces-in-WPF"&gt;http://channel9.msdn.com/Shows/Visual-Studio-Toolbox/User-Interfaces-in-WPF&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://channel9.msdn.com/Shows/Visual-Studio-Toolbox/User-Interfaces-in-WPF/player?format=html5" width="960" height="540" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'User-Interfaces-in-WPF'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Better-Conventions-for-AutoMapper" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Better-Conventions-for-AutoMapper</id>
+		<title>Better Conventions for AutoMapper</title>
+		<updated>2014-12-20T13:09:08Z</updated>
+		<content>&lt;p&gt;A video on an interesting approach for configuring AutoMapper.&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube.com/embed/AQGk8WnMpAY" width="420" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Better-Conventions-for-AutoMapper'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/RavenHQ-cheap-hosted-RavenDB" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/RavenHQ-cheap-hosted-RavenDB</id>
+		<title>RavenHQ cheap hosted RavenDB</title>
+		<updated>2014-01-16T11:23:05Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://ravenhq.com/"&gt;http://ravenhq.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="descImage img-rounded" style="background-color: white;" src="http://ravenhq.com/Content/css/images/logo.png" alt=""&gt;
+&lt;/p&gt;&lt;p&gt;If you are looking for an affordable hosted RavenDB, checkout RavenHQ. &amp;nbsp;You can get 15MB free, and the rest of the plans are decently affordable as well. &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;pre class="font-h"&gt;&lt;strong&gt;Looking for a hosted solution for RavenDB?&lt;/strong&gt;&lt;br&gt;RavenHQ is the official hosted solution for RavenDB. With our fully-managed cloud of RavenDB servers and scalable plans, you’ll never have to worry about installation, updates, availability, performance, security or backups again.&lt;br&gt;Choose RavenHQ for your RavenDB hosting requirements and we’ll free you up to focus on your job.&lt;/pre&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'RavenHQ-cheap-hosted-RavenDB'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Wild-New-Gun-Tech" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Wild-New-Gun-Tech</id>
+		<title>Wild New Gun Tech</title>
+		<updated>2014-01-08T11:10:48Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://sploid.gizmodo.com/new-bullet-expands-itself-into-four-connected-parts-to-1496153895"&gt;http://sploid.gizmodo.com/new-bullet-expands-itself-into-four-connected-parts-to-1496153895&lt;/a&gt;&lt;/p&gt;
+&lt;h1 class="headline hovered"&gt;New bullet expands itself into four connected parts to kill better&lt;/h1&gt;
+&lt;p&gt;&lt;iframe src="https://www.youtube-nocookie.com/embed/w4_4hT9W5mU?rel=0" width="420" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;Called the Mi-Bullet, the round acts somewhat like a multi-pellet buckshot, but the separate fragments of the round are connected and will expand to a pre-determined diameter after the bullet is fired. The Mi-Bullet expands to a diameter of 14 inches when fired from handguns and 24 inches from shotguns. [It] maintains its accuracy by utilizing an accelerated radial spread aided by the rifled barrel, officials say. The larger diameter makes it harder to miss, the company said.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Wild-New-Gun-Tech'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Interesting-Web-Browser-Control-Behavior-in-Windows-Forms-application" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Interesting-Web-Browser-Control-Behavior-in-Windows-Forms-application</id>
+		<title>Interesting Web Browser Control Behavior in Windows Forms application</title>
+		<updated>2014-01-07T14:10:32Z</updated>
+		<content>&lt;p&gt;
+I tend to use the web browser control in window forms for GUI. &amp;nbsp;This may not be the best choice, but I am also a web developer and find this suits me well. &amp;nbsp;It does sometimes introuduce challenges along the way...
+&lt;/p&gt;&lt;p&gt;&lt;img class="descImage" src="http://vb.net-informations.com/communications/img/web-browser.JPG" alt=""&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Problem&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp; I had a large list (1000+) of text and images that I dropped into DIV containers. &amp;nbsp;I then used the following code to place that list into my Web Browser control.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt; webBrowser1.Document.GetElementById("content").InnerHtml = largeList;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This got the job done, but was painfully slow. I attempted to split the list up and load chunks, it still caused the GUI to lock up.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The solution turned out to be pretty simple. Write that large list to a html file, and navigate the webbrowser to the new file. This allows the WebBrowser control to load the document enough to get into an "Interactive State". This allows the GUI to opperate normally while the WebBrowser control handles the loading of the long list.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Interesting-Web-Browser-Control-Behavior-in-Windows-Forms-application'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/The-HaaHa-Show-Microsoft-ASPNET-MVC-Security-with-Haack-and-Hanselman" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/The-HaaHa-Show-Microsoft-ASPNET-MVC-Security-with-Haack-and-Hanselman</id>
+		<title>The HaaHa Show Microsoft ASP.NET MVC Security with Haack and Hanselman</title>
+		<updated>2014-01-05T14:48:14Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://channel9.msdn.com/Events/MIX/MIX10/FT05"&gt;http://channel9.msdn.com/Events/MIX/MIX10/FT05&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;The HaaHa Show: Microsoft ASP.NET MVC Security with Haack and&amp;nbsp;Hanselman&lt;/h1&gt;
+&lt;p&gt;&lt;video width="540" height="350" poster="http://ecn.channel9.msdn.com/o9/mix/10/thumb/FT05.jpg" controls="controls"&gt;&lt;source src="http://ecn.channel9.msdn.com/o9/mix/10/mp4/FT05.mp4" type="video/mp4"&gt;&lt;/video&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'The-HaaHa-Show-Microsoft-ASPNET-MVC-Security-with-Haack-and-Hanselman'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/I-fucking-love-to-code" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/I-fucking-love-to-code</id>
+		<title>I fucking love to code</title>
+		<updated>2014-01-05T14:45:54Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://www.youtube.com/watch?v=MELG2yRJd0E"&gt;http://www.youtube.com/watch?v=MELG2yRJd0E&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="watch-headline-title" class="yt"&gt;&lt;span id="eow-title" class="watch-title  yt-uix-expander-head" dir="ltr" title="Codemania 2012: 001 Phil Haack"&gt;Codemania 2012: 001 Phil Haack&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;iframe src="http://www.youtube.com/embed/MELG2yRJd0E?rel=0" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'I-fucking-love-to-code'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Rendering-an-ASPNET-MVC-View-to-a-string-in-a-Web-Api-Controller" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Rendering-an-ASPNET-MVC-View-to-a-string-in-a-Web-Api-Controller</id>
+		<title>Rendering an ASP.NET MVC View to a string in a Web Api Controller</title>
+		<updated>2014-01-04T14:06:05Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://wouterdekort.blogspot.com/2012/10/rendering-aspnet-mvc-view-to-string-in.html?m=1"&gt;http://wouterdekort.blogspot.com/2012/10/rendering-aspnet-mvc-view-to-string-in.html?m=1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This will be useful for my media server app.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Rendering-an-ASPNET-MVC-View-to-a-string-in-a-Web-Api-Controller'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Vacations-are-for-the-weak" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Vacations-are-for-the-weak</id>
+		<title>Vacations are for the weak</title>
+		<updated>2014-01-04T11:37:30Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://sethbannon.com/vacations-are-for-the-weak"&gt;http://sethbannon.com/vacations-are-for-the-weak&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We all understand the absurdity of that old adage “sleep is for the weak”. That attitude has been put to rest by a bevy of studies empirically showing that sleep in fact makes you smarter, stronger, and more creative. But when it comes to extended rest and relaxation, there still exists a sort of taboo.&lt;/p&gt;
+&lt;pre&gt;Click the source link to read the rest of the article.&lt;/pre&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Vacations-are-for-the-weak'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Dogs-St-In-Alignment-w-Earths-Magnetic-Field" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Dogs-St-In-Alignment-w-Earths-Magnetic-Field</id>
+		<title>Dogs S#!t In Alignment w/ Earth's Magnetic Field</title>
+		<updated>2014-01-03T14:30:28Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://geekologie.com/2014/01/me-too-dogs-st-in-alignment-w-earths-mag.php"&gt;http://geekologie.com/2014/01/me-too-dogs-st-in-alignment-w-earths-mag.php&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="descImage" src="http://geekologie.com/2014/01/01/dog-waste-magnetic-fields.jpg" alt="dog-waste-magnetic-fields.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Watch your step, Florida.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In case you were wondering, my Spirit Quest was a huge success and I am returning to reality refreshed AND with the knowledge of my spirit animal. I think it was a coyote, but it was pretty flat and there were a lot of tire tracks.&lt;/p&gt;
+&lt;p&gt;In news that required way too much watching dogs circle and squat, researchers have discovered that the majority of dogs&lt;a href="http://motherboard.vice.com/blog/dogs-poop-in-alignment-with-earths-magnetic-field"&gt;&amp;nbsp;align themselves with earth's north/south magnetic field&lt;/a&gt;&amp;nbsp;before opening the gates to their brownie factories. Anybody have Little Debbie Fudge Brownies in their lunchbox today? I'll be taking those.&lt;/p&gt;
+&lt;blockquote&gt;...the researchers measured the direction of the body axis of 70 dogs from 37 breeds during 1,893 defecations and 5,582 urinations over the course of two years, and found that dogs "prefer to excrete with the body being aligned along the North-south axis under calm magnetic field conditions." They fittingly published their results in the journal Frontiers in Zoology.
+&lt;p&gt;&lt;br&gt;&lt;em&gt;It is still enigmatic why the dogs do align at all, whether they do it 'consciously' (i.e., whether the magnetic field is sensorial perceived (the dogs 'see,' 'hear' or 'smell' the compass direction or perceive it as a haptic stimulus) or whether its reception is controlled on the vegetative level (they 'feel better/more comfortable or worse/less comfortable' in a certain direction). Our analysis of the raw data (not shown here) indicates that dogs not only prefer N-S direction, but at the same time they also avoid E-W direction.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Apparently, all the studies were conducted on dogs that were off-leash and in the middle of a field with no fire hydrants or trees, so don't think your dog is special if it pees or shits facing east. If it shits in my yard though I will come out and yell at you.&lt;/p&gt;
+&lt;p&gt;Thanks to Rob, who agrees they should only install toilets in north/south facing directions so people stop peeing on the floor.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Dogs-St-In-Alignment-w-Earths-Magnetic-Field'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Automatic-Dropdown-Lists-for-Razor-Views" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Automatic-Dropdown-Lists-for-Razor-Views</id>
+		<title>Automatic Dropdown Lists for Razor Views.</title>
+		<updated>2014-01-02T16:49:23Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="ctl00_ArticleTitle"&gt;Automatic Dropdown Lists for Razor Views.&lt;/h1&gt;
+&lt;div id="contentdiv" class="text"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This article shows how we can apply a&amp;nbsp;DropDownList&amp;nbsp;metadata attribute to a View Model property, and have a DropdDownList&amp;nbsp;rendered by the&amp;nbsp;EditorFor&amp;nbsp;HTML helper.&lt;/p&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;I'm a big fan of runtime scaffolding in ASP.NET MVC. This is where you use e.g. the&amp;nbsp;&lt;a title="How to use the Html.EditorFor method" href="http://www.pearson-and-steel.co.uk/how-to-use-the-html-editorfor-method/"&gt;EditorFor&lt;/a&gt;&amp;nbsp;HTML Helper to decide how to render an HTML element for a property of your view model. For example, if a property is marked with theDataType&amp;nbsp;attribute and that indicates the property's&amp;nbsp;DataType&amp;nbsp;is DateTime, then will automatically render a date picker. For integer properties,&amp;nbsp;EditorFor&amp;nbsp;renders an UpDown spinner control. If EditorFor works smoothly for all your properties, you can use a single&amp;nbsp;EditorForModel&amp;nbsp;element to render your whole view model into the view correctly.&lt;/p&gt;
+&lt;h2&gt;Using the code&lt;/h2&gt;
+&lt;p&gt;Using this system involves new code and changed code in several areas of your MVC application. It is not just a library or plugin, although I have plans for version 2 to use Unity at these points where I modify the code.&lt;/p&gt;
+&lt;div id="premain0" class="pre-action-link"&gt;&lt;img id="preimg0" src="http://www.codeproject.com/images/minus.gif" alt="" width="9" height="9"&gt;&lt;span id="precollapse0"&gt;&amp;nbsp;Collapse&lt;/span&gt;&amp;nbsp;|&amp;nbsp;&lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;Copy Code&lt;/a&gt;&lt;/div&gt;
+&lt;pre id="pre0" lang="cs"&gt;&lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;class&lt;/span&gt; DemoModel
+{
+    [DropDownList(&lt;span class="code-string"&gt;"&lt;/span&gt;&lt;span class="code-string"&gt;LanguageSelect"&lt;/span&gt;)]
+    &lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;int&lt;/span&gt;? LanguageId { &lt;span class="code-keyword"&gt;get&lt;/span&gt;; &lt;span class="code-keyword"&gt;set&lt;/span&gt;; }
+    &lt;span class="code-keyword"&gt;public&lt;/span&gt; SelectList LanguageSelect { &lt;span class="code-keyword"&gt;get&lt;/span&gt;; &lt;span class="code-keyword"&gt;set&lt;/span&gt;; } 
+} 
+&lt;/pre&gt;
+&lt;p&gt;Now when I use the Razor markup&amp;nbsp;@EditorFor(m =&amp;gt; m.LanguageId), I get a drop-down populated from theLanguageSelect&amp;nbsp;list. I get this because the&amp;nbsp;DropDownListAttrbute&amp;nbsp;class attaches the select list name to theLanguageId&amp;nbsp;model:&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div id="premain1" class="pre-action-link"&gt;&lt;img id="preimg1" src="http://www.codeproject.com/images/minus.gif" alt="" width="9" height="9"&gt;&lt;span id="precollapse1"&gt;&amp;nbsp;Collapse&lt;/span&gt;&amp;nbsp;|&amp;nbsp;&lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;Copy Code&lt;/a&gt;&lt;/div&gt;
+&lt;pre id="pre1" lang="cs"&gt;&lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;class&lt;/span&gt; DropDownListAttribute : UIHintAttribute, IMetadataAware
+{
+    &lt;span class="code-keyword"&gt;public&lt;/span&gt; DropDownListAttribute(&lt;span class="code-keyword"&gt;string&lt;/span&gt; selectListName) : &lt;span class="code-keyword"&gt;base&lt;/span&gt;(KnownUiHints.DropDown, KnownPresentationLayers.Mvc, selectListName)
+    {
+        SelectListName = selectListName;
+    }
+    &lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;string&lt;/span&gt; SelectListName { &lt;span class="code-keyword"&gt;get&lt;/span&gt;; &lt;span class="code-keyword"&gt;set&lt;/span&gt;; }
+    &lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;void&lt;/span&gt; OnMetadataCreated(ModelMetadata metadata)
+    {
+        &lt;span class="code-keyword"&gt;var&lt;/span&gt; listProp = metadata.ContainerType.GetProperty(SelectListName);
+        metadata.AdditionalValues[KnowMetadataKeys.SelectListName] = SelectListName;
+    }
+} 
+&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;All my view models derive from&amp;nbsp;ViewModel, which offers a&amp;nbsp;SelectListDictionary&amp;nbsp;property:&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div id="premain2" class="pre-action-link"&gt;&lt;img id="preimg2" src="http://www.codeproject.com/images/minus.gif" alt="" width="9" height="9"&gt;&lt;span id="precollapse2"&gt;&amp;nbsp;Collapse&lt;/span&gt;&amp;nbsp;|&amp;nbsp;&lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;Copy Code&lt;/a&gt;&lt;/div&gt;
+&lt;pre id="pre2" lang="cs"&gt;&lt;span class="code-keyword"&gt;private&lt;/span&gt; IDictionary&amp;lt;&lt;span class="code-keyword"&gt;string&lt;/span&gt;,&amp;gt; _selectListdictionary;
+&lt;span class="code-keyword"&gt;public&lt;/span&gt; &lt;span class="code-keyword"&gt;virtual&lt;/span&gt; IDictionary&amp;lt;&lt;span class="code-keyword"&gt;string&lt;/span&gt;,&amp;gt; SelectListDictionary
+{
+    &lt;span class="code-keyword"&gt;get&lt;/span&gt;
+    {
+        &lt;span class="code-keyword"&gt;if&lt;/span&gt; (_selectListdictionary == &lt;span class="code-keyword"&gt;null&lt;/span&gt;)
+        {
+            &lt;span class="code-keyword"&gt;var&lt;/span&gt; props = GetType().GetProperties().Where(p =&amp;gt; p.PropertyType == &lt;span class="code-keyword"&gt;typeof&lt;/span&gt;(SelectList));
+            _selectListdictionary = props.ToDictionary(prop =&amp;gt; prop.Name, prop =&amp;gt; (SelectList)prop.GetValue(&lt;span class="code-keyword"&gt;this&lt;/span&gt;, &lt;span class="code-keyword"&gt;null&lt;/span&gt;));
+        }
+        &lt;span class="code-keyword"&gt;return&lt;/span&gt; _selectListdictionary;
+    }
+}
+&lt;span class="code-keyword"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="code-leadattribute"&gt;string,&lt;/span&gt;&lt;span class="code-keyword"&gt;&amp;gt;&lt;/span&gt;&lt;span class="code-keyword"&gt;&amp;lt;&lt;/span&gt;&lt;span class="code-keyword"&gt;/&lt;/span&gt;&lt;span class="code-leadattribute"&gt;string,&lt;/span&gt;&lt;span class="code-keyword"&gt;&amp;gt;&lt;/span&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;In my base controller, I override the&amp;nbsp;View&amp;nbsp;method to pull the entire select list dictionary from the view model, and insert it into the view's viewdata, making it available for the editor template:&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div id="premain3" class="pre-action-link"&gt;&lt;img id="preimg3" src="http://www.codeproject.com/images/minus.gif" alt="" width="9" height="9"&gt;&lt;span id="precollapse3"&gt;&amp;nbsp;Collapse&lt;/span&gt;&amp;nbsp;|&amp;nbsp;&lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;Copy Code&lt;/a&gt;&lt;/div&gt;
+&lt;pre id="pre3" lang="cs"&gt;&lt;span class="code-keyword"&gt;protected&lt;/span&gt; &lt;span class="code-keyword"&gt;override&lt;/span&gt; ViewResult View(&lt;span class="code-keyword"&gt;string&lt;/span&gt; viewName, &lt;span class="code-keyword"&gt;string&lt;/span&gt; masterName, &lt;span class="code-keyword"&gt;object&lt;/span&gt; model)
+{
+    &lt;span class="code-keyword"&gt;var&lt;/span&gt; result = &lt;span class="code-keyword"&gt;base&lt;/span&gt;.View(viewName, masterName, model);
+    &lt;span class="code-keyword"&gt;if&lt;/span&gt; ((model &lt;span class="code-keyword"&gt;is&lt;/span&gt; ViewModel) &amp;amp;&amp;amp; (!ViewData.ContainsKey(KnowMetadataKeys.ViewDataSelectLists)))
+    {
+        &lt;span class="code-keyword"&gt;var&lt;/span&gt; vm = (ViewModel)model;
+        result.ViewData.Add(KnowMetadataKeys.ViewDataSelectLists, vm.SelectListDictionary);
+    }
+    &lt;span class="code-keyword"&gt;return&lt;/span&gt; result;
+}
+&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Said editor template:&lt;/p&gt;
+&lt;div id="premain4" class="pre-action-link"&gt;&lt;img id="preimg4" src="http://www.codeproject.com/images/minus.gif" alt="" width="9" height="9"&gt;&lt;span id="precollapse4"&gt;&amp;nbsp;Collapse&lt;/span&gt;&amp;nbsp;|&amp;nbsp;&lt;a href="http://www.codeproject.com/Articles/703398/Automatic-Dropdown-Lists-for-Razor-Views"&gt;Copy Code&lt;/a&gt;&lt;/div&gt;
+&lt;pre id="pre4" lang="cs"&gt;@using Erisia.Constants
+@{
+    &lt;span class="code-keyword"&gt;var&lt;/span&gt; list = (SelectList)ViewData.ModelMetadata.AdditionalValues[ViewData.ModelMetadata.AdditionalValues[KnowMetadataKeys.SelectListName].ToString()];
+    &lt;span class="code-keyword"&gt;var&lt;/span&gt; listWithSelected = &lt;span class="code-keyword"&gt;new&lt;/span&gt; SelectList(list.Items, list.DataValueField, list.DataTextField, Model);
+}
+@Html.DropDownListFor(m =&amp;gt; Model, listWithSelected, &lt;span class="code-string"&gt;"&lt;/span&gt;&lt;span class="code-string"&gt; - select - "&lt;/span&gt;)
+&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h2&gt;Remarks&amp;nbsp;&amp;nbsp;&lt;/h2&gt;
+There are probably some better ways of doing this, and populating the select list inside the view model is probably not too kosher, but this little 'framework' has saved me so much time on so many projects, and I've just received a glowing compliment for it on&amp;nbsp;&lt;a title="Code Review from StackExchange" href="http://codereview.stackexchange.com/"&gt;Code Review beta&lt;/a&gt;. It's been way too long since I wrote an article and I thought sharing this would make a good one.&lt;/div&gt;
+&lt;h2&gt;License&lt;/h2&gt;
+&lt;div id="LicenseTerms"&gt;
+&lt;p&gt;This article, along with any associated source code and files, is licensed under&amp;nbsp;&lt;a href="http://www.codeproject.com/info/cpol10.aspx" rel="license"&gt;The Code Project Open License (CPOL)&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Automatic-Dropdown-Lists-for-Razor-Views'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Free-Learning" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Free-Learning</id>
+		<title>Free Learning!</title>
+		<updated>2014-01-02T16:35:59Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="https://www.edx.org/course/harvardx/harvardx-cs50x-introduction-computer-1022"&gt;https://www.edx.org/course/harvardx/harvardx-cs50x-introduction-computer-1022&lt;/a&gt;
+&lt;/p&gt;&lt;h2 class="course-detail-title"&gt;Introduction to Computer Science&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;iframe style="max-width: 100%; float: left; padding-right: 15px;" src="https://www.youtube.com/embed/ZAldYMFUIac?rel=0" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;h3&gt;About this Course&lt;/h3&gt;
+&lt;div&gt;
+&lt;p&gt;CS50x is Harvard College's introduction to the intellectual enterprises of computer science and the art of programming for majors and non-majors alike, with or without prior programming experience. An entry-level course taught by David J. Malan, CS50x teaches students how to think algorithmically and solve problems efficiently. Topics include abstraction, algorithms, data structures, encapsulation, resource management, security, software engineering, and web development. Languages include C, PHP, and JavaScript plus SQL, CSS, and HTML. Problem sets inspired by real-world domains of biology, cryptography, finance, forensics, and gaming. As of Fall 2013, the on-campus version of CS50x was Harvard's second-largest course.&lt;/p&gt;
+&lt;p&gt;Students who earn a satisfactory score on 9 problem sets (i.e., programming assignments) and a final project will receive a certificate from HarvardX. Students may take CS50x at their own pace.&lt;/p&gt;
+&lt;p&gt;Before your course starts, try the new edX Demo where you can explore the fun, interactive learning environment and virtual labs.&amp;nbsp;&lt;a href="https://www.edx.org/course/edx/edxdemo101/edx-demo/1038" target="_blank"&gt;Learn more&lt;/a&gt;.&lt;/p&gt;
+&lt;div id="block-views-course-detail-about" class="block block-views no-title"&gt;
+&lt;div class="view view-course-detail view-id-course_detail view-display-id-about column-left view-dom-id-a13e93fbf12da8ebdbf5c13c5b6de84d"&gt;
+&lt;div class="view-content"&gt;
+&lt;div class="course-section course-detail-about"&gt;
+&lt;h3&gt;Enroll in the CS50 Certificate Option at Harvard Extension School&lt;/h3&gt;
+&lt;p&gt;For this option, available during the spring 2014 semester, you interact with teaching assistants in discussion forums, participate in virtual group office hours with the instructor, and earn a passing score on nine problem sets. If your work is satisfactory, you will receive a CS50 Certificate and a $350 voucher toward a course at Harvard Extension or Summer School. The cost of this option is $350.&amp;nbsp;&lt;a href="https://www.extension.harvard.edu/cs50-certificate?utm_source=edx.org&amp;amp;utm_medium=referralcertificate&amp;amp;utm_campaign=cs50x" target="_blank"&gt;Learn more about the CS50 certificate&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Earn Harvard credit in the full course at Harvard Extension School&lt;/h3&gt;
+&lt;p&gt;You can enroll in the traditional, semester-long course at Harvard Extension School. You gain full access to the teaching staff, receiving human feedback on assignments. Enroll for undergraduate or graduate credit and you will receive grades on a Harvard transcript. The cost of this option is $2,050.&lt;a href="https://www.extension.harvard.edu/courses/intensive-introduction-computer-science?utm_source=edx.org&amp;amp;utm_medium=referralextcourse&amp;amp;utm_campaign=cs50x" target="_blank"&gt;Learn more about Intensive Introduction to Computer Science&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="block-views-course-detail-enrollment" class="block block-views no-title"&gt;
+&lt;div class="view view-course-detail view-id-course_detail view-display-id-enrollment column-left view-dom-id-b9820f54ad04df85bf23d89e8b7d6d90"&gt;
+&lt;div class="view-content"&gt;
+&lt;div class="course-detail-enrollment ways-to-take-this-edx-course views-fieldset" data-module="views_fieldsets"&gt;
+&lt;h3 class="course-how-take-title"&gt;WAYS TO TAKE THIS EDX COURSE:&lt;/h3&gt;
+&lt;div class="course-how-take-block course-how-take-audit"&gt;
+&lt;h3 class="copy-lead"&gt;Simply Audit this Course&lt;/h3&gt;
+&lt;div class="course-how-take-block-content"&gt;
+&lt;p&gt;Can't commit to all of the lectures, assignments, and tests? Audit this course and have complete access to all of the course material, tests, and the online discussion forum. You decide what and how much you want to do.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="course-how-take-block-footer copy-meta"&gt;
+&lt;p class="course-take-audit-cost"&gt;Free to All&lt;/p&gt;
+&lt;p class="course-take-audit-more"&gt;&lt;a href="https://www.edx.org/student-faq#certificates"&gt;More about Auditing a Course&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="course-how-take-or copy-lead"&gt;or&lt;/div&gt;
+&lt;div class="course-how-take-block course-how-take-honor"&gt;
+&lt;h3 class="copy-lead"&gt;Try for a Certificate&lt;/h3&gt;
+&lt;div class="course-how-take-block-content"&gt;
+&lt;p&gt;Looking to test your mettle? Participate in all of the course's activities and abide by the edX Honor Code. If your work is satisfactory, you'll receive a personalized certificate to showcase your achievement.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="course-how-take-block-footer copy-meta"&gt;
+&lt;p class="course-take-audit-cost"&gt;Free to All&lt;/p&gt;
+&lt;p class="course-take-audit-more"&gt;&lt;a href="https://www.edx.org/student-faq#certificates"&gt;More about Honor Code Certificates&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="block-views-course-detail-staff" class="block block-views no-title"&gt;
+&lt;div class="view view-course-detail view-id-course_detail view-display-id-staff column-left course-section course-detail-staff view-dom-id-c8eb0a5e64196d7341a065c787e52f5c"&gt;
+&lt;div class="view-header"&gt;
+&lt;h3&gt;Course Staff&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="view-content"&gt;
+&lt;ul class="staff-list"&gt;
+&lt;li class="staff-row"&gt;
+&lt;div class="course-staff-image views-fieldset" data-module="views_fieldsets"&gt;
+&lt;div class="staff-image"&gt;&lt;img class="image-style-none" title="David Malan" src="https://www.edx.org/sites/default/files/person/image/dmalan00.jpg" alt="David Malan" width="110" height="100"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="course-staff-info views-fieldset" data-module="views_fieldsets"&gt;
+&lt;h4 class="staff-title"&gt;David J. Malan&lt;/h4&gt;
+&lt;div class="staff-resume"&gt;
+&lt;p&gt;David is a Senior Lecturer on Computer Science at Harvard University for the School of Engineering and Applied Sciences. He received his A.B., S.M., and Ph.D. in Computer Science from Harvard in 1999, 2004, and 2007, respectively.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class="staff-row"&gt;
+&lt;div class="course-staff-image views-fieldset" data-module="views_fieldsets"&gt;
+&lt;div class="staff-image"&gt;&lt;img class="image-style-none" title="Rob Bowden" src="https://www.edx.org/sites/default/files/person/image/rbowden00.jpg" alt="Rob Bowden" width="110" height="110"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="course-staff-info views-fieldset" data-module="views_fieldsets"&gt;
+&lt;h4 class="staff-title"&gt;Rob Bowden&lt;/h4&gt;
+&lt;div class="staff-resume"&gt;
+&lt;p&gt;Rob is a Preceptor in Computer Science at Harvard University for the School of Engineering and Applied Sciences. He received his A.B. in Computer Science with a secondary field in Mathematical Sciences from Harvard College in 2013.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class="staff-row"&gt;
+&lt;div class="course-staff-image views-fieldset" data-module="views_fieldsets"&gt;
+&lt;div class="staff-image"&gt;&lt;img class="image-style-none" title="Jason Hirschhorn" src="https://www.edx.org/sites/default/files/person/image/jhirschhorn00.jpg" alt="Jason Hirschhorn" width="110" height="110"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="course-staff-info views-fieldset" data-module="views_fieldsets"&gt;
+&lt;h4 class="staff-title"&gt;Jason Hirschhorn&lt;/h4&gt;
+&lt;div class="staff-resume"&gt;
+&lt;p&gt;Jason is a senior at Harvard College concentrating in Social Studies with a secondary field in Computer Science.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class="staff-row"&gt;
+&lt;div class="course-staff-image views-fieldset" data-module="views_fieldsets"&gt;
+&lt;div class="staff-image"&gt;&lt;img class="image-style-none" title="Zamyla Chan" src="https://www.edx.org/sites/default/files/person/image/zchan00.jpg" alt="Zamyla Chan" width="110" height="110"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="course-staff-info views-fieldset" data-module="views_fieldsets"&gt;
+&lt;h4 class="staff-title"&gt;Zamyla Chan&lt;/h4&gt;
+&lt;div class="staff-resume"&gt;
+&lt;p&gt;Zamyla is a senior at Harvard College concentrating in Engineering Sciences with a secondary field in Computer Science.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;none.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Free-Learning'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Chocolatey" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Chocolatey</id>
+		<title>Chocolatey!</title>
+		<updated>2014-01-02T15:57:30Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://chocolatey.org/"&gt;http://chocolatey.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;From Scott Hanselman's 2014 Ultimate Developer and Power Users Tool List for Windows&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;It’s a weird name, but it’s apt-get for Windows and once you start using it, you’ll be hooked. I tend to use it by default, even before Googling, to install stuff. For example, just today I went 'cinst filezilla' and 'cinst winscp' and was correct on both assumptions. Consider a "favoriteutils" batch file for building new machines and you'll be off and running in no time. Even better, use...&lt;br&gt;[&lt;a href="http://www.hanselman.com/blog/ScottHanselmans2014UltimateDeveloperAndPowerUsersToolListForWindows.aspx" target="_blank"&gt;Link&lt;/a&gt;]&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div class="col-md-6"&gt;
+&lt;h1&gt;Let's get Chocolatey!&lt;/h1&gt;
+&lt;p&gt;Chocolatey NuGet is a Machine Package Manager, somewhat like apt-get, but built with Windows in mind.&lt;/p&gt;
+&lt;h2&gt;Easy Install!&lt;/h2&gt;
+&lt;p&gt;To install chocolatey now, open a command prompt and paste the text from the box below and press enter.&amp;nbsp;(&lt;a href="https://github.com/chocolatey/chocolatey/wiki/Installation"&gt;Advanced&lt;/a&gt;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="col-md-6"&gt;&lt;img style="max-width: 100%;" src="http://chocolatey.org/content/images/hero.png" alt="Chocolatey install of Git (cinst git)"&gt;&lt;/div&gt;
+&lt;div class="col-md-12"&gt;&lt;code&gt;C:\&amp;gt;&amp;nbsp;@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" &amp;amp;&amp;amp; SET PATH=%PATH%;%systemdrive%\chocolatey\bin&lt;/code&gt;&lt;/div&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;strong&gt;Click the logo below for the Chocolatey Packages List&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://chocolatey.org/packages" target="_blank"&gt; &lt;img src="http://chocolatey.org/Content/Images/nugetlogo.png" alt=""&gt; &lt;/a&gt;&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Chocolatey'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+	<entry>
+		<link href="/posts/Jedi-scientists-make-things-fly-around-in-space-using-sound-waves" />
+		<link rel="enclosure" type="image" href="/none" />
+		<id>/posts/Jedi-scientists-make-things-fly-around-in-space-using-sound-waves</id>
+		<title>Jedi scientists make things fly around in space using sound waves</title>
+		<updated>2014-01-02T13:06:41Z</updated>
+		<content>&lt;p&gt;Source: &lt;a href="http://sploid.gizmodo.com/amazing-scientists-make-things-fly-around-in-space-usi-1492880964"&gt;http://sploid.gizmodo.com/amazing-scientists-make-things-fly-around-in-space-usi-1492880964&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="descImage" src="http://img.gawkerassets.com/img/19b8wgrjavtvggif/ku-xlarge.gif" alt=""&gt;&amp;nbsp; &amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Looking at this video, it seems like&amp;nbsp;&lt;a href="http://96ochiai.ws/3DOFacoustic" target="_blank"&gt;scientists at the University of Tokyo&lt;/a&gt;&amp;nbsp;have mastered the Force and they're now able to make things levitate&amp;nbsp;&lt;em&gt;and&amp;nbsp;&lt;/em&gt;move in space. But magic this is not, young Skywalker—it's the first time that anyone has achieved such a feat using&amp;nbsp;&lt;em&gt;sound waves&lt;/em&gt;. Given enough energy, they can move anything they want using this technique.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is awesome!.&amp;nbsp;&lt;/strong&gt;Check out the source link for more information.&lt;/p&gt;
+
+
+&lt;div id="disqus_thread"&gt;&lt;/div&gt;
+&lt;script&gt;
+/*
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+// this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = 'Jedi-scientists-make-things-fly-around-in-space-using-sound-waves'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://shanespaceblog.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href="https://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content>
+		<summary>ShaneSpace Blog</summary>
+	</entry>
+</feed>

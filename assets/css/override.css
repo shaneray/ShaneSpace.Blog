@@ -1,0 +1,39 @@
+@media only screen and (min-width: 768px) {
+    .intro-header .site-heading, .intro-header .post-heading, .intro-header .page-heading {
+        padding: 100px 0 50px;
+    }
+}
+
+.header-img {
+    margin-right: auto;
+    min-height: 150px;
+    margin-left: auto;
+    border: 2px solid white;
+    -ms-border-radius: 90px;
+    border-radius: 90px;
+}
+
+.post-title {
+    color: #D49D4C;
+}
+
+body {
+    background-color: #1E1E1E;
+    color: #B4B4B4;
+}
+
+a {
+    color: #569CD6;
+}
+
+img {
+    max-width: 100%;
+}
+
+#intro-header {
+    background-color: #2D2D30;
+}
+
+.right-border {
+    border: 0;
+}
