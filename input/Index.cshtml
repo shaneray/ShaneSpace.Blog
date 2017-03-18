@@ -24,7 +24,11 @@
                         }
                     </a>
                     <p class="post-meta">Posted on @(doc.Get<DateTime>(BlogKeys.Published).ToLongDateString())</p>
+                    <h2>TL;DR</h2>
                     @Html.Raw(doc.String(BlogKeys.Excerpt))
+                    <div style="text-align: right">
+                        <a class="post-meta" href="@Context.GetLink(doc)">Read full post...</a>
+                    </div>
                 </div>
             }
         }
